@@ -11,33 +11,50 @@ namespace Template
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        const int BLOCK_SIZE = 40;
+        const int BLOCK_SIZE = 96;
         private Texture2D stoneGround;
+        private Texture2D stoneWall;
+        private Texture2D rock;
         private Texture2D wall;
+        Texture2D playertex;
+        Vector2 playerPos = new Vector2(40, 100);
+        Player player;
+
+        public static int ScreenWidth
+        {
+            get;
+            private set;
+        }
+        public static int ScreenHeight
+        {
+            get;
+            private set;
+        }
         //KOmentar
 
         static char[,] map = new char[,]
         {
-            {'1','1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
-            {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' },
+            {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','2','0','0','0','0','1' },
+            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','2','0','0','0','0','2','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','2','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
         };
 
 
 
         public Game1()
         {
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -49,8 +66,13 @@ namespace Template
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
             base.Initialize();
+            graphics.PreferredBackBufferWidth = ScreenWidth = GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = ScreenHeight = GraphicsDevice.DisplayMode.Height;
+            graphics.ApplyChanges();
+
+
         }
 
         /// <summary>
@@ -62,6 +84,10 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             stoneGround = Content.Load<Texture2D>("Brick");
+            stoneWall = Content.Load<Texture2D>("StoneWall");
+            playertex = Content.Load<Texture2D>("Player");
+            rock = Content.Load<Texture2D>("Rock");
+            player = new Player(playertex, playerPos);
 
             // TODO: use this.Content to load your game content here 
         }
@@ -88,6 +114,7 @@ namespace Template
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            player.Update();
         }
 
         /// <summary>
@@ -97,9 +124,12 @@ namespace Template
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.Gray);
 
-            for(int y = 0; y< map.GetLength(0); y++)
+            GraphicsDevice.Clear(Color.Black);
+
+           
+
+            for (int y = 0; y< map.GetLength(0); y++)
             {
                 for(int x = 0; x < map.GetLength(1); x++)
                 {
@@ -108,8 +138,19 @@ namespace Template
 
                         spriteBatch.Draw(stoneGround, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
                     }
+                    if (map[y,x] == '1')
+                    {
+
+                        spriteBatch.Draw(stoneWall, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
+                    if (map[y,x] == '2')
+                    {
+
+                        spriteBatch.Draw(rock, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
                 }
             }
+            player.Draw(spriteBatch);
 
             // TODO: Add your drawing code here.
             spriteBatch.End();
