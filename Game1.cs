@@ -12,10 +12,16 @@ namespace Template
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         const int BLOCK_SIZE = 96;
+
+
+        //--------------------------- Till Mappen
         private Texture2D stoneGround;
         private Texture2D stoneWall;
+
         private Texture2D rock;
         private Texture2D wall;
+        private Texture2D chair;
+        //------------------------
         Texture2D playertex;
         Vector2 playerPos = new Vector2(40, 100);
         Player player;
@@ -35,15 +41,15 @@ namespace Template
         static char[,] map = new char[,]
         {
             {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
-            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','2','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','2','0','3','0','3','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3','0','3','1' },
+            {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','2','0','3','0','3','1' },
             {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','2','0','0','0','0','2','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','2','0','0','1' },
             {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','0','0','0','0','0','1' },
+            {'1','0','0','0','0','0','0','0','0','0','2','0','0','0','0','0','3','0','3','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3','0','3','1' },
+            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3','0','3','1' },
             {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
         };
 
@@ -83,10 +89,11 @@ namespace Template
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            stoneGround = Content.Load<Texture2D>("Brick");
+            stoneGround = Content.Load<Texture2D>("GroundBrick");
             stoneWall = Content.Load<Texture2D>("StoneWall");
             playertex = Content.Load<Texture2D>("Player");
-            rock = Content.Load<Texture2D>("Rock");
+            rock = Content.Load<Texture2D>("Oil");
+            chair = Content.Load<Texture2D>("Chair");
             player = new Player(playertex, playerPos);
 
             // TODO: use this.Content to load your game content here 
@@ -123,9 +130,9 @@ namespace Template
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
 
-            GraphicsDevice.Clear(Color.Black);
 
            
 
@@ -133,20 +140,25 @@ namespace Template
             {
                 for(int x = 0; x < map.GetLength(1); x++)
                 {
-                    if(map[y,x] == '0')
+                    if(map[y,x] == '0' || map[y,x] == '2' || map[y, x] == '3')// Marken på första bannan 
                     {
 
                         spriteBatch.Draw(stoneGround, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
                     }
-                    if (map[y,x] == '1')
-                    {
-
-                        spriteBatch.Draw(stoneWall, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    if (map[y,x] == '1') //väggen uppe
+                    { 
+                        
+                        spriteBatch.Draw(stoneWall, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE , BLOCK_SIZE, BLOCK_SIZE), Color.White);
                     }
                     if (map[y,x] == '2')
                     {
 
-                        spriteBatch.Draw(rock, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                        spriteBatch.Draw(rock, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE  , BLOCK_SIZE), Color.White);
+                    }
+                    if (map[y,x] == '3' )
+                    {
+
+                        spriteBatch.Draw(chair, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE  , BLOCK_SIZE), Color.White);
                     }
                 }
             }

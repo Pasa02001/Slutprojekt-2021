@@ -32,8 +32,8 @@ namespace Template
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            int width = (int)(Game1.ScreenHeight * .3f);
-            int height = (int)(Game1.ScreenHeight * .3f);
+            int width = (int)(Game1.ScreenHeight * .08f);
+            int height = (int)(Game1.ScreenHeight * .08f);
             spriteBatch.Draw(texture, new Rectangle((int)texturePos.X, (int)texturePos.Y, width, height), null, Color.White, angle, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 0);
         }
 
