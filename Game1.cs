@@ -19,12 +19,22 @@ namespace Template
         private Texture2D stoneWall;
 
         private Texture2D rock;
+
+        //walls assets start 
         private Texture2D wall;
+        private Texture2D wallRight;
+        private Texture2D wallLeft;
+        private Texture2D wallBut;
+        private Texture2D wallTop;
+        //wall assets end
+
+
         private Texture2D chair;
         //------------------------
         Texture2D playertex;
-        Vector2 playerPos = new Vector2(40, 100);
+        Vector2 playerPos = new Vector2(100, 100);
         Player player;
+
 
         public static int ScreenWidth
         {
@@ -40,12 +50,12 @@ namespace Template
 
         static char[,] map = new char[,]
         {
-            {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
+            {'1','1','1','9','8','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
             {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','2','0','3','0','3','1' },
             {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3','0','3','1' },
             {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','2','0','3','0','3','1' },
-            {'1','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
-            {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'6','0','0','0','2','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
+            {'7','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1' },
             {'1','0','0','0','0','0','0','0','0','2','0','0','0','0','0','0','0','0','0','1' },
             {'1','0','0','0','0','0','0','0','0','0','2','0','0','0','0','0','3','0','3','1' },
             {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3','0','3','1' },
@@ -90,7 +100,17 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             stoneGround = Content.Load<Texture2D>("GroundBrick");
+
+
+            //walls 
             stoneWall = Content.Load<Texture2D>("StoneWall");
+            wallLeft = Content.Load<Texture2D>("WallLeft"); // = 102 
+            wallTop = Content.Load<Texture2D>("WallTop"); // = 100
+            wallBut = Content.Load<Texture2D>("WallBut"); // = 101 
+            wallRight = Content.Load<Texture2D>("WallRight"); // = 103
+
+            //walls
+            
             playertex = Content.Load<Texture2D>("Player");
             rock = Content.Load<Texture2D>("Oil");
             chair = Content.Load<Texture2D>("Chair");
@@ -145,11 +165,41 @@ namespace Template
 
                         spriteBatch.Draw(stoneGround, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
                     }
-                    if (map[y,x] == '1') //väggen uppe
+
+
+
+                    //walls
+                    if (map[y,x] == '1') //väggen vanlig
                     { 
                         
                         spriteBatch.Draw(stoneWall, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE , BLOCK_SIZE, BLOCK_SIZE), Color.White);
                     }
+
+                    if (map[y, x] == '6') //väggen top 
+                    {
+
+                        spriteBatch.Draw(wallTop, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
+
+                    if (map[y, x] == '7') //väggen Button
+                    {
+
+                        spriteBatch.Draw(wallBut, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
+                    if (map[y, x] == '8') //väggen Right
+                    {
+
+                        spriteBatch.Draw(wallRight, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
+                    if (map[y, x] == '9') //väggen left
+                    {
+
+                        spriteBatch.Draw(wallLeft, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), Color.White);
+                    }
+
+
+
+
                     if (map[y,x] == '2')
                     {
 
