@@ -8,9 +8,8 @@ namespace Template
     class Player : BaseClass
     {
         Vector2 mousePos;
-        public float angle;
 
-        public Player(Texture2D texture, Vector2 texturePos) : base(texture, texturePos)
+        public Player(Texture2D texture, Vector2 texturePos, float angle) : base(texture, texturePos, angle)
         {
 
         }

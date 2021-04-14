@@ -31,6 +31,7 @@ namespace Template
 
         private Texture2D chair;
         //------------------------
+        private float angle;
         Texture2D playertex;
         Vector2 playerPos = new Vector2(100, 100);
         Player player;
@@ -97,6 +98,8 @@ namespace Template
         /// </summary>
         protected override void LoadContent()
         {
+            Assets.LoadAssets(Content, GraphicsDevice);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             stoneGround = Content.Load<Texture2D>("GroundBrick");
@@ -111,10 +114,10 @@ namespace Template
 
             //walls
             
-            playertex = Content.Load<Texture2D>("Player");
+            
             rock = Content.Load<Texture2D>("Oil");
             chair = Content.Load<Texture2D>("Chair");
-            player = new Player(playertex, playerPos);
+            player = new Player(Assets.Player, playerPos, angle);
 
             // TODO: use this.Content to load your game content here 
         }
