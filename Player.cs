@@ -7,10 +7,16 @@ namespace Template
 {
     class Player : BaseClass
     {
-        Vector2 mousePos;
-        public float angle;
+        private MouseState old;
+        private MouseState current;
 
-        public Player(Texture2D texture, Vector2 texturePos) : base(texture, texturePos)
+
+        private WeaponHandler weaponHandler;
+
+
+        Vector2 mousePos;
+
+        public Player(Texture2D texture, Vector2 texturePos, float angle, Vector2 mousePos) : base(texture, texturePos, angle, mousePos)
         {
 
         }
@@ -26,9 +32,42 @@ namespace Template
             if (kState.IsKeyDown(Keys.A))
                 texturePos.X -= 5;
 
+
+            if (texturePos.X <= 96)
+            {
+                texturePos.X = 96;
+            }
+            if (texturePos.X >= 1824)
+            {
+                texturePos.X = 1824;
+            }
+            if (texturePos.Y <= 96)
+            {
+                texturePos.Y = 96;
+            }
+            if (texturePos.Y >= 960)
+            {
+                texturePos.Y = 960;
+            }
+
+
+
             mousePos = Mouse.GetState().Position.ToVector2();
             angle = (float)Math.Atan2(texturePos.Y - mousePos.Y, texturePos.X - mousePos.X) + (float)(Math.PI);
 
+
+            old = current;
+            current = Mouse.GetState();
+
+           
+
+            if (current.LeftButton == ButtonState.Pressed && old.LeftButton == ButtonState.Released)
+            {
+                weaponHandler.Shoot(texturePos, angle, new Vector2(), new Point(), mousePos, Damage.player);
+                
+            }
+
+            old = Mouse.GetState();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -42,5 +81,11 @@ namespace Template
             Vector2 dir = mousePos - texturePos;
             dir.Normalize();
         }
+
+        public void SetWeaponHandler(WeaponHandler wH)
+        {
+            weaponHandler = wH;
+        }
+
     }
 }

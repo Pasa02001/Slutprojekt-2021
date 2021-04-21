@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Template
 {
@@ -31,9 +32,15 @@ namespace Template
 
         private Texture2D chair;
         //------------------------
-        Texture2D playertex;
-        Vector2 playerPos = new Vector2(100, 100);
-        Player player;
+        private float angle;
+        private Texture2D playertex;
+        private Vector2 playerPos = new Vector2(100, 100);
+        private Player player;
+        private Vector2 mousePos;
+
+        private List<Bullet> bullets = new List<Bullet>();
+        private WeaponHandler weaponHandler;
+
 
 
         public static int ScreenWidth
@@ -97,6 +104,8 @@ namespace Template
         /// </summary>
         protected override void LoadContent()
         {
+            Assets.LoadAssets(Content, GraphicsDevice);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             stoneGround = Content.Load<Texture2D>("GroundBrick");
@@ -111,10 +120,15 @@ namespace Template
 
             //walls
             
-            playertex = Content.Load<Texture2D>("Player");
+            
             rock = Content.Load<Texture2D>("Oil");
             chair = Content.Load<Texture2D>("Chair");
-            player = new Player(playertex, playerPos);
+            player = new Player(Assets.Player, playerPos, angle, mousePos);
+
+
+            weaponHandler = new WeaponHandler(bullets);
+            player.SetWeaponHandler(weaponHandler);
+
 
             // TODO: use this.Content to load your game content here 
         }
@@ -137,6 +151,9 @@ namespace Template
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            weaponHandler.Update();
+            
+
 
             // TODO: Add your update logic here
 
@@ -154,6 +171,7 @@ namespace Template
             spriteBatch.Begin();
 
 
+            
            
 
             for (int y = 0; y< map.GetLength(0); y++)
@@ -211,6 +229,11 @@ namespace Template
                         spriteBatch.Draw(chair, new Rectangle(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE  , BLOCK_SIZE), Color.White);
                     }
                 }
+            }
+            foreach (Bullet item in bullets)
+            {
+                item.Draw(spriteBatch);
+
             }
             player.Draw(spriteBatch);
 
