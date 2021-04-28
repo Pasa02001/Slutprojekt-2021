@@ -171,13 +171,37 @@ namespace Template
             spriteBatch.Begin();
 
 
-            
-           
+            int x1 = (int)player.Position.X / BLOCK_SIZE;
+            int y1 = (int)player.Position.Y / BLOCK_SIZE;
+            int a = ((int)player.Position.X / BLOCK_SIZE) + 1;
+
+            if (map[y1, x1 + 1] == '3' )
+            {
+                player.Position = new Vector2(x1 * BLOCK_SIZE, player.Position.Y);
+            }
+            else if (map[y1, a - 1] == '3' )
+            {
+                player.Position = new Vector2(a * BLOCK_SIZE, player.Position.Y);
+            }
+
+
+            int b = ((int)player.Position.Y / BLOCK_SIZE) + 1;
+
+            if (map[y1 + 1, a] == '3')
+            {
+                player.Position = new Vector2(player.Position.X, y1 * BLOCK_SIZE);
+            }
+            else if (map[b - 1, x1] == '3')
+            {
+                player.Position = new Vector2(player.Position.X, b * BLOCK_SIZE);
+            }
+
 
             for (int y = 0; y< map.GetLength(0); y++)
             {
                 for(int x = 0; x < map.GetLength(1); x++)
                 {
+
                     if(map[y,x] == '0' || map[y,x] == '2' || map[y, x] == '3')// Marken på första bannan 
                     {
 

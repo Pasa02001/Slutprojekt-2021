@@ -12,6 +12,13 @@ namespace Template
         protected Rectangle hitBlox;
         protected Vector2 mousePos;
 
+
+
+        public Vector2 Position
+        {
+            get => texturePos;
+            set => texturePos = value; 
+        }
         public Rectangle HitBox
         {
             get => hitBlox;
