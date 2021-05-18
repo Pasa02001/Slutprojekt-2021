@@ -9,7 +9,7 @@ namespace Template
     {
         private MouseState old;
         private MouseState current;
-
+        public static Vector2 CurrentPlayerPos;
 
         private WeaponHandler weaponHandler;
 
@@ -22,6 +22,9 @@ namespace Template
         }
         public override void Update()
         {
+
+
+
             KeyboardState kState = Keyboard.GetState();
             if (kState.IsKeyDown(Keys.W))
                 texturePos.Y -= 5;
@@ -68,6 +71,8 @@ namespace Template
             }
 
             old = Mouse.GetState();
+
+            CurrentPlayerPos = new Vector2(texturePos.X, texturePos.Y);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

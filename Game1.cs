@@ -40,6 +40,7 @@ namespace Template
 
         private List<Bullet> bullets = new List<Bullet>();
         private WeaponHandler weaponHandler;
+        public static GameTime Time;
 
 
 

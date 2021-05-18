@@ -9,7 +9,7 @@ namespace Template
         protected Texture2D texture;
         protected Vector2 texturePos;
         protected float angle = 0f;
-        protected Rectangle hitBlox;
+        protected Rectangle hitBox;
         protected Vector2 mousePos;
 
 
@@ -21,7 +21,7 @@ namespace Template
         }
         public Rectangle HitBox
         {
-            get => hitBlox;
+            get => hitBox;
         }
         public BaseClass(Texture2D texture, Vector2 texturePos, float angle, Vector2 mousePos)
         {
@@ -29,6 +29,13 @@ namespace Template
             this.texturePos = texturePos;
             this.angle = angle;
             this.mousePos = mousePos;
+        }
+        public BaseClass(Texture2D texture, Vector2 texturePos, float angle)
+        {
+            this.texture = texture;
+            this.texturePos = texturePos;
+            this.angle = angle;
+            this.mousePos = Vector2.Zero;
         }
         public abstract void Update();
 

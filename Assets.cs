@@ -22,9 +22,10 @@ namespace Template
 
         public static Texture2D rock { get; private set; }
         public static Texture2D chair { get; private set; }
-        public static Texture2D player { get; private set; }
 
         public static Texture2D BulletTexture { get; private set; }
+
+        public static Texture2D Enemy { get; private set; }
   
 
 
@@ -33,6 +34,7 @@ namespace Template
             Player = Content.Load<Texture2D>("Player");
             stoneWall = Content.Load<Texture2D>("StoneWall");
             BulletTexture = Content.Load<Texture2D>("Bullet");
+            Enemy = Content.Load<Texture2D>("Enemy");
         }
     }
 }
