@@ -42,6 +42,9 @@ namespace Template
         private WeaponHandler weaponHandler;
         public static GameTime Time;
 
+        private List<Enemy> enemies = new List<Enemy>();
+        private EnemySpawner enemySpawner;
+
 
 
         public static int ScreenWidth
@@ -96,7 +99,7 @@ namespace Template
             graphics.PreferredBackBufferHeight = ScreenHeight = GraphicsDevice.DisplayMode.Height;
             graphics.ApplyChanges();
 
-
+            enemySpawner = new EnemySpawner(enemies, bullets);
         }
 
         /// <summary>
@@ -150,11 +153,17 @@ namespace Template
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Time = gameTime;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             weaponHandler.Update();
             
+            foreach(Enemy item in enemies)
+            {
+                item.Update();
+            }
 
+            enemySpawner.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -259,6 +268,11 @@ namespace Template
             {
                 item.Draw(spriteBatch);
 
+            }
+
+            foreach(Enemy item in enemies)
+            {
+                item.Draw(spriteBatch);
             }
             player.Draw(spriteBatch);
 

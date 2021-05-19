@@ -12,6 +12,7 @@ namespace Template
         private List<Enemy> enemies = new List<Enemy>();
         private List<Bullet> bullets = new List<Bullet>();
         private Random rnd = new Random();
+        private Vector2 door;
 
         private float time = 0;
         private int maxEnemies = 5;
@@ -28,29 +29,27 @@ namespace Template
         {
             time += (float)Game1.Time.ElapsedGameTime.TotalSeconds;
 
-            int x;
-            int y;
-            do
-            {
-                x = rnd.Next(0, 4000);
-                y = rnd.Next(0, 4000);
-            } while (DistanceFromPlayer(x, y));
 
+            Vector2 door1 = new Vector2(384,0);
+            Vector2 door2 = new Vector2(0,480);
+            
+            if (rnd.Next(0,100) > 50)
+            {
+                door = door1;
+            }
+            else
+            {
+                door = door2;
+            }
+            
             if (enemies.Count < maxEnemies)
             {
-                enemies.Add(new Enemy(Assets.Player ,new Vector2(x, y), 0, new WeaponHandler(bullets)));
+                enemies.Add(new Enemy(Assets.Player , door, 0, new WeaponHandler(bullets)));
             }
 
             EnemyLimit();
         }
 
-        private bool DistanceFromPlayer(int x, int y)
-        {
-            return x >= Player.CurrentPlayerPos.X + 500
-                || x <= Player.CurrentPlayerPos.X - 500
-                && y >= Player.CurrentPlayerPos.Y + 500
-                || y <= Player.CurrentPlayerPos.Y - 500;
-        }
 
         private void EnemyLimit()
         {
