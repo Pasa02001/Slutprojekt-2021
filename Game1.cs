@@ -60,8 +60,10 @@ namespace Template
             get;
             private set;
         }
-        //KOmentar
-
+        
+        /// <summary>
+        /// Detta representerar mappen där varje siffra representerar en textur.
+        /// </summary>
         static char[,] map = new char[,]
         {
             {'1','1','1','9','8','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1' },
@@ -180,7 +182,7 @@ namespace Template
             {
                 for (int j = 0; j < enemies.Count; j++)
                 {
-                    if(bullets[i].GetDamage == Damage.player && enemies[j].HitBox.Intersects(bullets[i].HitBox))
+                    if(bullets[i].GetDamage == Damage.player && enemies[j].HitBox.Intersects(bullets[i].HitBox)) //Här kollar jag om en kollision sker mellan spelarens skott och fiendens hitbox 
                     {
                         enemies.RemoveAt(j);
                         bullets.RemoveAt(i);
