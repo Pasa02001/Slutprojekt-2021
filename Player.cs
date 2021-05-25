@@ -5,7 +5,7 @@ using System;
 
 namespace Template
 {
-    class Player : BaseClass
+    class Player : BaseClass, IMoveable
     {
         private MouseState old;
         private MouseState current;
@@ -24,35 +24,7 @@ namespace Template
         {
 
 
-
-            KeyboardState kState = Keyboard.GetState();
-            if (kState.IsKeyDown(Keys.W))
-                texturePos.Y -= 5;
-            if (kState.IsKeyDown(Keys.S))
-                texturePos.Y += 5;
-            if (kState.IsKeyDown(Keys.D))
-                texturePos.X += 5;
-            if (kState.IsKeyDown(Keys.A))
-                texturePos.X -= 5;
-
-
-            if (texturePos.X <= 96)
-            {
-                texturePos.X = 96;
-            }
-            if (texturePos.X >= 1824)
-            {
-                texturePos.X = 1824;
-            }
-            if (texturePos.Y <= 96)
-            {
-                texturePos.Y = 96;
-            }
-            if (texturePos.Y >= 960)
-            {
-                texturePos.Y = 960;
-            }
-
+            Move();
 
 
             mousePos = Mouse.GetState().Position.ToVector2();
@@ -92,5 +64,37 @@ namespace Template
             weaponHandler = wH;
         }
 
+        public void Move()
+        {
+
+            KeyboardState kState = Keyboard.GetState();
+            if (kState.IsKeyDown(Keys.W))
+                texturePos.Y -= 5;
+            if (kState.IsKeyDown(Keys.S))
+                texturePos.Y += 5;
+            if (kState.IsKeyDown(Keys.D))
+                texturePos.X += 5;
+            if (kState.IsKeyDown(Keys.A))
+                texturePos.X -= 5;
+
+
+            if (texturePos.X <= 96)
+            {
+                texturePos.X = 96;
+            }
+            if (texturePos.X >= 1824)
+            {
+                texturePos.X = 1824;
+            }
+            if (texturePos.Y <= 96)
+            {
+                texturePos.Y = 96;
+            }
+            if (texturePos.Y >= 960)
+            {
+                texturePos.Y = 960;
+            }
+
+        }
     }
 }

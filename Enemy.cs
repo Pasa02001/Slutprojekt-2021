@@ -5,7 +5,7 @@ using System;
 
 namespace Template
 {
-    class Enemy : BaseClass
+    class Enemy : BaseClass, IMoveable
     {
         private WeaponHandler weaponHandler;
 
@@ -18,10 +18,7 @@ namespace Template
 
         public override void Update()
         {
-            angle = (float)Math.Atan2(texturePos.Y - Player.CurrentPlayerPos.Y, texturePos.X - Player.CurrentPlayerPos.X) + (float)(Math.PI);
-            hitBox.Location = texturePos.ToPoint();
-
-            Search();
+            Move();
 
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -34,6 +31,14 @@ namespace Template
             Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             speed = 1.5f;
             texturePos += direction * speed * 2; 
+        }
+
+        public void Move()
+        {
+            angle = (float)Math.Atan2(texturePos.Y - Player.CurrentPlayerPos.Y, texturePos.X - Player.CurrentPlayerPos.X) + (float)(Math.PI);
+            hitBox.Location = texturePos.ToPoint();
+
+            Search();
         }
     }
 }

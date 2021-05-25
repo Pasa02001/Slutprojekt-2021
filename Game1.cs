@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Template
 {
@@ -12,6 +13,9 @@ namespace Template
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private int score;
+        private BinaryWriter bw;
+        private BinaryReader br;
 
 
 
@@ -109,6 +113,16 @@ namespace Template
         {
             Assets.LoadAssets(Content, GraphicsDevice);
 
+            if (File.Exists("Score.bin"))
+            {
+                br = new BinaryReader(new FileStream("Score.bin", FileMode.OpenOrCreate, FileAccess.Read));
+                if (br.BaseStream.Length > 0)
+                {
+                    score = br.ReadInt32();
+                   
+                }
+                br.Close();
+            }
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             stoneGround = Content.Load<Texture2D>("GroundBrick");
@@ -145,10 +159,7 @@ namespace Template
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
+      
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
@@ -173,8 +184,13 @@ namespace Template
                     {
                         enemies.RemoveAt(j);
                         bullets.RemoveAt(i);
+                        score++;
+                        bw = new BinaryWriter(new FileStream("Score.bin", FileMode.OpenOrCreate, FileAccess.Write));
+                        bw.Write(score);
+                        bw.Close();
                         i--;
                         j--;
+
                         break;
                     }
                 }

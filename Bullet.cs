@@ -5,7 +5,7 @@ using System;
 
 namespace Template
 {
-    class Bullet : BaseClass
+    class Bullet : BaseClass, IMoveable
     {
 
         private Point size = new Point(20, 20);
@@ -25,18 +25,21 @@ namespace Template
 
         public override void Update()
         {
-            texturePos += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 50;
-
-            hitBox.Location = texturePos.ToPoint();
-
-
-
+            Move();
            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Assets.BulletTexture, HitBox, null, Color.White, angle, new Vector2(texturePos.X + texture.Width / 2, texturePos.Y + texture.Height / 2), SpriteEffects.None, 0);
+        }
+
+        public void Move()
+        {
+            texturePos += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 50;
+
+            hitBox.Location = texturePos.ToPoint();
+
         }
     }
 

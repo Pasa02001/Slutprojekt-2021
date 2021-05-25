@@ -6,7 +6,7 @@ namespace Template
 {
     public abstract class BaseClass
     {
-        protected Texture2D texture;
+        protected Texture2D texture; 
         protected Vector2 texturePos;
         protected float angle = 0f;
         protected Rectangle hitBox;
@@ -19,10 +19,17 @@ namespace Template
             get => texturePos;
             set => texturePos = value; 
         }
+        /// <summary>
+        /// Används för att texturernas position (I de ollika klasserna)
+        /// </summary>
         public Rectangle HitBox
         {
             get => hitBox;
         }
+
+        /// <summary>
+        /// Objektets storlek 
+        /// </summary>
         public BaseClass(Texture2D texture, Vector2 texturePos, float angle, Vector2 mousePos)
         {
             this.texture = texture;
@@ -30,6 +37,9 @@ namespace Template
             this.angle = angle;
             this.mousePos = mousePos;
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BaseClass(Texture2D texture, Vector2 texturePos, float angle)
         {
             this.texture = texture;
@@ -37,6 +47,9 @@ namespace Template
             this.angle = angle;
             this.mousePos = Vector2.Zero;
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public abstract void Update();
 
 
