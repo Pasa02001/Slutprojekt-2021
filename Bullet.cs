@@ -34,6 +34,12 @@ namespace Template
             spriteBatch.Draw(Assets.BulletTexture, HitBox, null, Color.White, angle, new Vector2(texturePos.X + texture.Width / 2, texturePos.Y + texture.Height / 2), SpriteEffects.None, 0);
         }
 
+
+        /// <summary>
+        /// Move refererar till Imoveable move()
+        /// Och är till för att flytta på skottets hitbox och textur enligt vinkeln  
+        
+        /// </summary>
         public void Move()
         {
             texturePos += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 50;
@@ -44,7 +50,9 @@ namespace Template
     }
 
 
-
+/// <summary>
+/// Refererar till vilken klass skottet originerar 
+/// </summary>
     enum Damage{
         player,
         enemy 
