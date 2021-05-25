@@ -32,7 +32,7 @@ namespace Template
             Enemy = Content.Load<Texture2D>("Enemy");
         }
         /// <summary>
-        /// Här tas de olika assets för att ristas ut
+        /// Här tas de olika assets för att rita ut. Detta gör det mer strukturerat och lättare att ha en god överblick
         /// </summary>
     }
 }
