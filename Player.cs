@@ -20,6 +20,7 @@ namespace Template
         {
 
         }
+
         public override void Update()
         {
 
@@ -46,13 +47,14 @@ namespace Template
 
             CurrentPlayerPos = new Vector2(texturePos.X, texturePos.Y);
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             int width = (int)(Game1.ScreenHeight * .08f);
             int height = (int)(Game1.ScreenHeight * .08f);
             spriteBatch.Draw(texture, new Rectangle((int)texturePos.X, (int)texturePos.Y, width, height), null, Color.White, angle, new Vector2(texture.Width / 2, texture.Height / 2), SpriteEffects.None, 0);
         }
-
+        
         private void Shoot(Vector2 mousePos)
         {
             Vector2 dir = mousePos - texturePos;
@@ -63,7 +65,11 @@ namespace Template
         {
             weaponHandler = wH;
         }
-
+        /// <summary>
+        /// Move refererar till Imoveable move()
+        /// Rörelsen på spelarens textur och hibox
+        /// </summary>
+        
         public void Move()
         {
 
