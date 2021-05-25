@@ -50,7 +50,9 @@ namespace Template
             EnemyLimit();
         }
 
-
+        /// <summary>
+        /// Frekvensen på hur många enemies som ska spawna. Ökar med tiden 
+        /// </summary>
         private void EnemyLimit()
         {
             if (time > spawnInterval)
