@@ -14,22 +14,24 @@ namespace Template
 
 
 
+        /// <summary>
+        /// Används för texturernas position (I de ollika klasserna)
+        /// </summary>
         public Vector2 Position
         {
             get => texturePos;
             set => texturePos = value; 
         }
+       
         /// <summary>
-        /// Används för att texturernas position (I de ollika klasserna)
+        /// Objektets storlek 
         /// </summary>
         public Rectangle HitBox
         {
             get => hitBox;
         }
 
-        /// <summary>
-        /// Objektets storlek 
-        /// </summary>
+        
         public BaseClass(Texture2D texture, Vector2 texturePos, float angle, Vector2 mousePos)
         {
             this.texture = texture;
@@ -37,9 +39,7 @@ namespace Template
             this.angle = angle;
             this.mousePos = mousePos;
         }
-        /// <summary>
-        /// 
-        /// </summary>
+     
         public BaseClass(Texture2D texture, Vector2 texturePos, float angle)
         {
             this.texture = texture;
@@ -47,9 +47,7 @@ namespace Template
             this.angle = angle;
             this.mousePos = Vector2.Zero;
         }
-        /// <summary>
-        /// 
-        /// </summary>
+    
         public abstract void Update();
 
 
