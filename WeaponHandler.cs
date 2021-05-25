@@ -34,7 +34,7 @@ namespace Template
 
         public void Shoot( Vector2 playerPos, float angle, Vector2 speed, Point size, Vector2 mousPos, Damage damage)
         {
-            bullets.Add(new Bullet( playerPos, angle, speed, size, mousPos, damage));
+            bullets.Add(new Bullet( playerPos, angle, speed, size, mousPos, damage)); // Skapar objekt av bullet och lägger till detta i bullets listan
         }
     }
 }
