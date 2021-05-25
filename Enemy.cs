@@ -25,7 +25,9 @@ namespace Template
         {
             spriteBatch.Draw(Assets.Enemy, HitBox, null, Color.White, angle, new Vector2(Assets.Player.Width / 2, Assets.Player.Height / 2), SpriteEffects.None, 0);
         }
-
+        /// <summary>
+        /// Search sätter riktingen till spelaren och sedan förljer den
+        /// </summary>
         public void Search()
         {
             Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -33,6 +35,10 @@ namespace Template
             texturePos += direction * speed * 2; 
         }
 
+        /// <summary>
+        /// Move refererar till Imoveable move()
+        /// Och är till för att flytta på enemys hitbox och textur efter spelaren  
+        /// </summary>
         public void Move()
         {
             angle = (float)Math.Atan2(texturePos.Y - Player.CurrentPlayerPos.Y, texturePos.X - Player.CurrentPlayerPos.X) + (float)(Math.PI);
