@@ -37,7 +37,7 @@ namespace Template
 
            
 
-            if (current.LeftButton == ButtonState.Pressed && old.LeftButton == ButtonState.Released)
+            if (current.LeftButton == ButtonState.Pressed && old.LeftButton == ButtonState.Released)// Anropar weaponHandler.shoot() 
             {
                 weaponHandler.Shoot(texturePos, angle, new Vector2(), new Point(), mousePos, Damage.player);
                 
