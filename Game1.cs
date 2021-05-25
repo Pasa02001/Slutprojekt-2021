@@ -12,31 +12,30 @@ namespace Template
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        const int BLOCK_SIZE = 96;
+
 
 
         //--------------------------- Till Mappen
+        const int BLOCK_SIZE = 96; // Storleken på varje block i mappen
         private Texture2D stoneGround;
         private Texture2D stoneWall;
-
         private Texture2D rock;
-
-        //walls assets start 
-        private Texture2D wall;
         private Texture2D wallRight;
         private Texture2D wallLeft;
         private Texture2D wallBut;
         private Texture2D wallTop;
-        //wall assets end
-
-
         private Texture2D chair;
         //------------------------
-        private float angle;
-        private Texture2D playertex;
-        private Vector2 playerPos = new Vector2(100, 100);
-        private Player player;
-        private Vector2 mousePos;
+        /// <summary>
+        /// Allt som ska in som textur i svälva mappen förutom block storleken. 
+        /// </summary>
+
+
+
+        private float angle; // Hållet texturena riktas 
+        private Vector2 playerPos = new Vector2(1000, 500); //Positionen där spelaren börjar 
+        private Player player; 
+        private Vector2 mousePos; 
 
         private List<Bullet> bullets = new List<Bullet>();
         private WeaponHandler weaponHandler;
@@ -165,6 +164,22 @@ namespace Template
 
             enemySpawner.Update(gameTime);
 
+
+            for (int i=0; i < bullets.Count; i++)
+            {
+                for (int j = 0; j < enemies.Count; j++)
+                {
+                    if(bullets[i].GetDamage == Damage.player && enemies[j].HitBox.Intersects(bullets[i].HitBox))
+                    {
+                        enemies.RemoveAt(j);
+                        bullets.RemoveAt(i);
+                        i--;
+                        j--;
+                        break;
+                    }
+                }
+            }
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -181,30 +196,6 @@ namespace Template
             spriteBatch.Begin();
 
 
-            int x1 = (int)player.Position.X / BLOCK_SIZE;
-            int y1 = (int)player.Position.Y / BLOCK_SIZE;
-            int a = ((int)player.Position.X / BLOCK_SIZE) + 1;
-
-            if (map[y1, x1 + 1] == '3' )
-            {
-                player.Position = new Vector2(x1 * BLOCK_SIZE, player.Position.Y);
-            }
-            else if (map[y1, a - 1] == '3' )
-            {
-                player.Position = new Vector2(a * BLOCK_SIZE, player.Position.Y);
-            }
-
-
-            int b = ((int)player.Position.Y / BLOCK_SIZE) + 1;
-
-            if (map[y1 + 1, a] == '3')
-            {
-                player.Position = new Vector2(player.Position.X, y1 * BLOCK_SIZE);
-            }
-            else if (map[b - 1, x1] == '3')
-            {
-                player.Position = new Vector2(player.Position.X, b * BLOCK_SIZE);
-            }
 
 
             for (int y = 0; y< map.GetLength(0); y++)
